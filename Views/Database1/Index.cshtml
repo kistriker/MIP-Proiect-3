@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MagazinOnline.Models.Database1>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Inventar Produse</h2>
+
+<p>
+    @Html.ActionLink("Adaugă Ceva Nou", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeProdus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantitate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("Delete", "Database", new { id = item.Id }))
+        {
+            using (Html.BeginForm("Details", "Database", new { id = item.Id }))
+            {
+                using (Html.BeginForm("Edit", "Database", new { id = item.Id }))
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeProdus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantitate)
+                </td>
+                <td>
+                    <input type="submit" value="Edit" />
+                    <input type="submit" value="Details" />
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete record with ID = @item.Id')" />
+                </td>
+            </tr>
+                }
+            }
+        }
+    }
+
+</table>
